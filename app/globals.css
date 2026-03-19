@@ -1,31 +1,140 @@
 @import "tailwindcss";
 
-@theme inline {
-  --color-0: #ecead9;
-  --color-1: #ffffff;
-  --color-2: #000000;
-  --color-3: #1e1e1e;
-  --color-4: #dddddd;
-  --color-5: #757575;
-  --color-6: #161615;
-  --color-7: #f0f0f0;
-  --color-8: #949494;
-  --color-9: #cccccc;
-  --color-10: #cc1818;
-  --color-11: #333333;
-  --color-12: #eeeeee;
-  --color-13: #2f2f2f;
-  --color-14: #e0e0e0;
-  --color-15: #32373c;
-  --color-16: #4ab866;
-  --color-17: #444444;
-  --color-18: #408bd1;
-  --color-19: #666666;
-  --color-dark: #000000;
-  --color-primary: #ecead9;
-  --color-primary-light: #ecead9;
+@font-face {
+  font-family: 'Ogg';
+  src: url('/fonts/Ogg-Regular.woff2') format('woff2'),
+       url('/fonts/Ogg-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
 }
 
-  body {
-    @apply bg-white text-dark antialiased;
+@font-face {
+  font-family: 'Ogg';
+  src: url('/fonts/Ogg-RegularItalic.woff2') format('woff2'),
+       url('/fonts/Ogg-RegularItalic.woff') format('woff');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: url('/fonts/roboto-v27-latin-regular.woff2') format('woff2'),
+       url('/fonts/roboto-v27-latin-regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@theme inline {
+  --color-primary: #161615;
+  --color-secondary: #ecead9;
+  --color-accent: #9eb0a8;
+  
+  --font-serif: "Ogg", serif;
+  --font-sans: "Roboto", sans-serif;
+
+  --spacing-side: 150px;
+  --spacing-side-tablet: 75px;
+  --spacing-side-mobile: 24px;
+}
+
+:root {
+  --background: #ecead9;
+  --foreground: #161615;
+}
+
+:root.dark {
+  --background: #161615;
+  --foreground: #ecead9;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  transition: background-color 1.2s cubic-bezier(0.4, 0, 0.2, 1), color 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, .font-serif {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 0.95;
+}
+
+p {
+  line-height: 1.7;
+}
+
+.button-bullet {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 36px;
+  border-radius: 50px;
+  border: 1px solid var(--foreground);
+  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  background: transparent;
+  color: var(--foreground);
+}
+
+.button-bullet:hover {
+  font-style: italic;
+  background-color: var(--foreground);
+  color: var(--background);
+  padding: 12px 42px;
+}
+
+.section-padding {
+  padding-top: 160px;
+  padding-bottom: 160px;
+}
+
+@media (max-width: 1024px) {
+  .section-padding {
+    padding-top: 100px;
+    padding-bottom: 100px;
+  }
+}
+
+.transition-theme {
+  transition: background-color 1.2s cubic-bezier(0.4, 0, 0.2, 1), 
+              color 1.2s cubic-bezier(0.4, 0, 0.2, 1), 
+              border-color 1.2s cubic-bezier(0.4, 0, 0.2, 1),
+              opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.fade-in-up {
+  animation: fadeInUp 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+::selection {
+  background-color: var(--foreground);
+  color: var(--background);
+}
+
+.mz-open {
+  overflow: hidden;
 }

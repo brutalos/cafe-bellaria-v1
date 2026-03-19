@@ -5,16 +5,18 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
+    "start": "npx prisma db push --skip-generate && next start",
     "lint": "eslint",
     "test:render": "vitest run --reporter=verbose 2>&1",
     "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
     "deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
-    "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts"
+    "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts",
+    "postinstall": "prisma generate"
   },
   "dependencies": {
     "@opennextjs/cloudflare": "^1",
     "@prisma/adapter-d1": "^6",
+    "@prisma/client": "^6.19.2",
     "@stripe/react-stripe-js": "^3.1.1",
     "@stripe/stripe-js": "^5.5.0",
     "lucide-react": "^0.469.0",
@@ -34,6 +36,7 @@
     "eslint": "^9",
     "eslint-config-next": "16.1.6",
     "happy-dom": "^16",
+    "prisma": "^6.19.2",
     "tailwindcss": "^4",
     "typescript": "^5",
     "vitest": "^3",
