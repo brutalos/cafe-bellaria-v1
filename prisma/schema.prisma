@@ -22,6 +22,7 @@ model Product {
   image       String?
   category    Category @relation(fields: [categoryId], references: [id])
   categoryId  String
+  orderItems  OrderItem[]
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }
@@ -30,6 +31,39 @@ model User {
   id        String   @id @default(cuid())
   email     String   @unique
   name      String?
+  orders    Order[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
+
+model Order {
+  id          String      @id @default(cuid())
+  amount      Float
+  currency    String      @default("EUR")
+  status      String      @default("PENDING") // PENDING, PAID, FAILED, SHIPPED
+  user        User?       @relation(fields: [userId], references: [id])
+  userId      String?
+  items       OrderItem[]
+  email       String
+  firstName   String
+  lastName    String
+  address     String
+  city        String
+  postalCode  String
+  country     String
+  stripeIntentId String?  @unique
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+}
+
+model OrderItem {
+  id        String  @id @default(cuid())
+  order     Order   @relation(fields: [orderId], references: [id])
+  orderId   String
+  product   Product @relation(fields: [productId], references: [id])
+  productId String
+  name      String
+  price     Float
+  quantity  Int
+}
+
