@@ -95,10 +95,13 @@ export default function Cart() {
                   </div>
                 </div>
                 
-                <button className="button-bullet w-full py-6 group flex justify-between items-center bg-current text-[var(--background)]">
+                <Link 
+                  href="/checkout"
+                  className="button-bullet w-full py-6 group flex justify-between items-center bg-current text-[var(--background)] no-underline"
+                >
                   <span>Zur Kasse</span>
                   <ArrowRight size={20} className="transition-transform group-hover:translate-x-2" />
-                </button>
+                </Link>
                 
                 <p className="text-[10px] opacity-40 text-center uppercase tracking-widest leading-loose">
                   Inkl. MwSt. zzgl. Versandkosten (falls zutreffend). Kostenloser Versand ab €50.
