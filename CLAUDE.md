@@ -148,12 +148,38 @@ Server Components CANNOT use event handlers, hooks, or browser APIs.
 - In server components: `<form>` with NO `onSubmit` — use `action` attribute or a client component
 - If you need `onSubmit`, put the ENTIRE form in a `components/ContactForm.tsx` with `'use client'`
 
+## Brutalos Brain API
+
+This project is connected to the Brain (Brutalos AI platform).
+Brain is reachable at `$BRUTALOS_BACKEND_URL` (set in your environment, default: `http://localhost:8000`).
+
+**Session ID**: Look for `BRUTALOS_SESSION_ID: <id>` at the bottom of the prompt.
+
+### Store a credential (after generating an API key)
+```bash
+curl -s -X POST "$BRUTALOS_BACKEND_URL/api/brain/store_credential"   -H "Content-Type: application/json"   -d '{"service": "<slug>-data", "key": "api_key", "value": "<generated-key>"}'
+```
+
+### Log task completion (MANDATORY at end of every task)
+```bash
+curl -s -X POST "$BRUTALOS_BACKEND_URL/api/brain/activity"   -H "Content-Type: application/json"   -d '{"summary": "Added X feature. Created Y and Z files.", "files_modified": "app/page.tsx,app/api/route.ts", "session_id": "$BRUTALOS_SESSION_ID"}'
+```
+
+**CRITICAL: Always call the activity endpoint at the end of every task.**
+This is how Brain knows what you did in autonomous sessions.
+
+### List stored credentials
+```bash
+curl -s "$BRUTALOS_BACKEND_URL/api/brain/list_credentials"
+```
+
 ## Available Skills
 
 - **api-patterns**: Common API integration patterns including OAuth, API keys, pagination, rate limiting, and error handling. Use when working with external APIs or authentication.
 - **app-builder**: Main application building orchestrator. Creates full-stack applications from natural language requests. Determines project type, selects tech stack, coordinates agents.
 - **architecture-patterns**: Implement proven backend architecture patterns including Clean Architecture, Hexagonal Architecture, and Domain-Driven Design. Use when architecting complex backend systems or refactoring existing applications for better maintainability.
 - **backend-architect**: Expert backend architect specializing in scalable API design, microservices architecture, and distributed systems. Masters REST/GraphQL/gRPC APIs, event-driven architectures, service mesh patterns, and modern backend frameworks. Handles service boundary definition, inter-service communication, resilience patterns, and observability. Use PROACTIVELY when creating new backend services or APIs.
+- **brainstorming**: "Use before any creative or feature work — explores user intent, requirements and design before implementation. Ask questions one at a time, propose 2-3 approaches, get approval before acting."
 - **business-audit**: Comprehensive business digital presence audit & ongoing monitoring — analyzes website, Google Business Profile, social media, SEO, online ordering/booking, loyalty, marketing automation, voice agent potential, and sets up ongoing weekly/monthly monitoring. Works for ANY business type (restaurant, hotel, retail, clinic, salon, gym, service). Use PROACTIVELY when user asks to research, audit, analyze, monitor, or improve any business.
 - **canvas-design**: Create beautiful visual art in .png and .pdf documents using design philosophy. You should use this skill when the user asks to create a poster, piece of art, design, or other static piece. Create original visual designs, never copying existing artists' work to avoid copyright violations.
 - **code-reviewer**: Elite code review expert specializing in modern AI-powered code analysis, security vulnerabilities, performance optimization, and production reliability. Masters static analysis tools, security scanning, and configuration review with 2024/2025 best practices. Use PROACTIVELY for code quality assurance.
@@ -165,8 +191,15 @@ Server Components CANNOT use event handlers, hooks, or browser APIs.
 - **edit-website**: Surgical website edit workflow — grep to locate, read only that file, edit with precision
 - **image-generator**: "Generate images via AI. Run: python .agent/skills/image-generator/scripts/generate_image.py --prompt \"...\" --filename \"name\" --aspect-ratio \"1:1\". Valid aspect ratios: 1:1 (square), 16:9 (banner), 9:16 (mobile), 4:3 (landscape), 3:4 (portrait). Saves PNG to public/images/."
 - **image-validator**: Validates that images in generated websites are not broken. Checks URLs, flags placeholders, suggests reliable alternatives.
+- **loyal-architect**: Use when adding digital loyalty features (Apple/Google Wallet, merchant scanners) to an existing Next.js project.
 - **pdf**: Comprehensive PDF manipulation toolkit for extracting text and tables, creating new PDFs, merging/splitting documents, and handling forms. When Claude needs to fill in a PDF form or programmatically process, generate, or analyze PDF documents at scale.
 - **pptx-official**: "Presentation creation, editing, and analysis. When Claude needs to work with presentations (.pptx files) for: (1) Creating new presentations, (2) Modifying or editing content, (3) Working with layouts, (4) Adding comments or speaker notes, or any other presentation tasks"
+- **prisma-cli**: Prisma CLI commands reference covering all available commands, options, and usage patterns. Use when running Prisma CLI commands, setting up projects, generating client, running migrations, or managing databases. Triggers on "prisma init", "prisma generate", "prisma migrate", "prisma db", "prisma studio".
+- **prisma-client-api**: Prisma Client API reference covering model queries, filters, operators, and client methods. Use when writing database queries, using CRUD operations, filtering data, or configuring Prisma Client. Triggers on "prisma query", "findMany", "create", "update", "delete", "$transaction".
+- **prisma-database-setup**: Guides for configuring Prisma with different database providers (PostgreSQL, MySQL, SQLite, MongoDB, etc.). Use when setting up a new project, changing databases, or troubleshooting connection issues. Triggers on "configure postgres", "connect to mysql", "setup mongodb", "sqlite setup".
+- **prisma-driver-adapter-implementation**: Required reference for Prisma v7 driver adapter work. Use when implementing or modifying adapters, adding database drivers, or touching SqlDriverAdapter/Transaction interfaces. Contains critical contract details not inferable from code examples — including the transaction lifecycle protocol, error mapping requirements, and verification checklist. Existing implementations do not replace this skill.
+- **prisma-postgres**: Prisma Postgres setup and operations guidance across Console, create-db CLI, Management API, and Management API SDK. Use when creating Prisma Postgres databases, working in Prisma Console, provisioning with create-db/create-pg/create-postgres, or integrating programmatic provisioning with service tokens or OAuth.
+- **prisma-upgrade-v7**: Complete migration guide from Prisma ORM v6 to v7 covering all breaking changes. Use when upgrading Prisma versions, encountering v7 errors, or migrating existing projects. Triggers on "upgrade to prisma 7", "prisma 7 migration", "prisma-client generator", "driver adapter required".
 - **prompt-engineer**: Expert prompt engineer specializing in advanced prompting techniques, LLM optimization, and AI system design. Masters chain-of-thought, constitutional AI, and production prompt strategies. Use when building AI features, improving agent performance, or crafting system prompts.
 - **prompt-engineering-patterns**: Master advanced prompt engineering techniques to maximize LLM performance, reliability, and controllability in production. Use when optimizing prompts, improving LLM outputs, or designing production prompt templates.
 - **python-performance-optimization**: Profile and optimize Python code using cProfile, memory profilers, and performance best practices. Use when debugging slow Python code, optimizing bottlenecks, or improving application performance.

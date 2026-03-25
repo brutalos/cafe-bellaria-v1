@@ -53,3 +53,4 @@ _mirror/
 node_modules/
 .open-next/
 !.gitignore
+AGENTS.md
